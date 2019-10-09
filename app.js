@@ -13,11 +13,22 @@ new Vue({
         car: cars[0],
         selectedCarIndex: 0,
         phoneVisibility: false,
+        search: ''
     },
     methods: {
         selectCar: function(index) {
             this.car = cars[index];
             this.selectedCarIndex = index;
+        }
+    },
+    computed: {
+        phoneBtnText() {
+            return this.phoneVisibility ? 'Hide phone' : 'Show phone';
+        },
+        fiteredCars() {
+            return  this.cars.filter(car => {
+                return car.name.indexOf(this.search) > -1 || car.model.indexOf(this.search) > -1
+            });
         }
     }
 })

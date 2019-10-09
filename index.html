@@ -17,15 +17,19 @@
             <div class="col-md-4">
                 <div class="form-group">
                     <label for="search">Find your car</label>
-                    <input type="text" class="form-control" id="search"
-                        placeholder="Name, model ...">
+                    <input 
+                        type="text" 
+                        class="form-control" 
+                        id="search"
+                        placeholder="Name, model ..."
+                        v-model="search">
                 </div>
                 <hr>
                 <ul class="list-group">
                     <li 
-                        v-for="(car,index) in cars"
-                        v-on:click="selectCar(index)"
-                        v-bind:class="{'active':selectedCarIndex === index}"
+                        v-for="(car,index) in fiteredCars"
+                        @click="selectCar(index)"
+                        :class="{'active':selectedCarIndex === index}"
                         class="list-group-item list-group-item-action pointer">
                         {{ car.name }} - {{ car.model }}
                     </li>
@@ -35,7 +39,7 @@
                 <div class="row">
                     <div class="col-md-5">
                         <h2>{{ car.name }}</h2>
-                        <img :src="car.image" v-bind:alt="car.name" class="rounded detailed-car-image" >
+                        <img :src="car.image" :alt="car.name" class="rounded detailed-car-image" >
                     </div>
                     <div class="col-md-7 pt-2">
                         <h5>Car details</h5>
@@ -44,17 +48,20 @@
                             <li>Year - <strong>{{ car.year }}</strong></li>
                             <li>Owner - <strong>{{ car.owner }}</strong></li>
                         </ul>
-                        <p v-if="phoneVisibility">{{ car.phone }}</p>
+                        <div class="phone-block">
+                            <p v-if="phoneVisibility">{{ car.phone }}</p>
+                        </div>
                         <button class="btn btn-outline-success mr-3" 
-                            v-on:click="phoneVisibility = !phoneVisibility"
-                            >Show Phone</button>
+                            @click="phoneVisibility = !phoneVisibility"
+                            v-text="phoneBtnText"
+                            ></button>
                         <button class="btn btn-primary">Buy</button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.0"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script src="app.js"></script>
 </body>
 </html>
